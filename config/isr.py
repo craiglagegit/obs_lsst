@@ -10,5 +10,5 @@ config.doCrosstalk = True
 config.doAddDistortionModel = False
 
 # Work-around for median-bug in overscan correction (DM-15203).
-config.isr.overscanFitType = 'POLY'
-config.isr.overscanOrder = 0
+config.overscanFitType = 'POLY'
+config.overscanOrder = 0
