@@ -5,8 +5,7 @@ if hasattr(config, 'ccdKeys'):
 
 config.isr.doLinearize = False
 config.isr.doDefect = False
-# For Run1.2x data, no crosstalk
-config.isr.doCrosstalk = False
+config.isr.doCrosstalk = True
 config.isr.doAddDistortionModel = False
 
 # Work-around for median-bug in overscan correction (DM-15203).
