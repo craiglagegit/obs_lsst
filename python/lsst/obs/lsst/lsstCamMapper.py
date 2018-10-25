@@ -34,6 +34,7 @@ from lsst.obs.base import CameraMapper, MakeRawVisitInfo, bboxFromIraf
 import lsst.daf.persistence as dafPersist
 
 from . import lsstCam
+from .filters import getFilterDefinitions
 
 __all__ = ["LsstCamMapper"]
 
@@ -307,20 +308,9 @@ class LsstCamMapper(CameraMapper):
 
     @classmethod
     def defineFilters(cls):
-        # The order of these defineFilter commands matters as their IDs are used to generate at least some
-        # object IDs (e.g. on coadds) and changing the order will invalidate old objIDs
         afwImageUtils.resetFilters()
-        afwImageUtils.defineFilter('NONE', 0.0, alias=['no_filter', "OPEN"])
-        afwImageUtils.defineFilter('275CutOn', 0.0, alias=[])
-        afwImageUtils.defineFilter('550CutOn', 0.0, alias=[])
-        # The LSST Filters from L. Jones 04/07/10
-        afwImageUtils.defineFilter('u', lambdaEff=364.59, lambdaMin=324.0, lambdaMax=395.0)
-        afwImageUtils.defineFilter('g', lambdaEff=476.31, lambdaMin=405.0, lambdaMax=552.0)
-        afwImageUtils.defineFilter('r', lambdaEff=619.42, lambdaMin=552.0, lambdaMax=691.0)
-        afwImageUtils.defineFilter('i', lambdaEff=752.06, lambdaMin=818.0, lambdaMax=921.0)
-        afwImageUtils.defineFilter('z', lambdaEff=866.85, lambdaMin=922.0, lambdaMax=997.0)
-        # official y filter
-        afwImageUtils.defineFilter('y', lambdaEff=971.68, lambdaMin=975.0, lambdaMax=1075.0, alias=['y4'])
+        for filterDef in getFilterDefinitions():
+            filterDef.declare()
 
     def _makeCamera(self, policy, repositoryDir):
         """Make a camera (instance of lsst.afw.cameraGeom.Camera) describing the camera geometry."""
