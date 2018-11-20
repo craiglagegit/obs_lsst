@@ -8,6 +8,7 @@ setupRequired(numpy)
 setupRequired(utils)
 setupRequired(ip_isr)
 setupRequired(pipe_tasks)
+setupRequired(astro_metadata_translator)
 
 envPrepend(PYTHONPATH, ${PRODUCT_DIR}/python)
 envPrepend(PATH, ${PRODUCT_DIR}/bin)
